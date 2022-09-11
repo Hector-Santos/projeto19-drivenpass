@@ -1,27 +1,19 @@
-import {db} from '../db.js';
+
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
 
-export async function verificaToken(req, res, next) {
+export async function verifyToken(req:Request, res:Response, next:NextFunction) {
     const authorization = req.headers.authorization;
     const token = authorization?.replace("Bearer ", "");
-      if (!token) {
-      return res.sendStatus(401);
-      }
-    const session = await db.collection("sessions").findOne({ token });
-    if (!session) {
-      return res.sendStatus(401);
-    }
-      const user = await db.collection("users").findOne({ 
-          _id: session.userId 
+    
+    if (!token) throw {type: 'unauthorized', message: 'no token was provided'}
+
+    const SECRET: string = process.env.TOKEN_SECRET_KEY ?? '';
+
+    jwt.verify(token, SECRET, function(err){
+        if (err) throw {type: 'unauthorized', message: 'the provided token is not valid'}
       });
-      if (!user) {
-        return res.sendStatus(401);
-        
-      }
-      delete user.password;
-      
-      res.locals.user = user;
-  
     next();
   }
 
