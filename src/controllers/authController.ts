@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { IUserData } from '../types/usersTypes.js';
-import { createUser, login} from '../services/usersService.js';
+import {login} from '../services/authService.js';
+import { createUser } from '../services/usersService.js';
 
 
 
