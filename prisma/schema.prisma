@@ -45,13 +45,14 @@ model cards {
   user          users    @relation(fields: [userId], references: [id])
   userId        Int
   nameOnCard    String   @db.VarChar(50)
-  name          String   @db.VarChar(50)
+  tag           String   @db.VarChar(50)
   cardNumber    String
   cvc           String
   password      String
   isVirtual     Boolean
-  expiratioDate String
+  expirationDate String
   cardType      CardType
+  @@unique([userId, tag])
 }
 
 model WiFi {

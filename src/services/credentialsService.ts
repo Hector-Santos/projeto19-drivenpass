@@ -63,7 +63,6 @@ export async function findCredential(credentialId: number, userId:number){
 }
 
 export async function findCredentials(userId:number){
-  console.log(userId)
   const credentials = await findAllCredentials(userId)
   if(credentials.length === 0)
   throw {type: 'not_found', message: 'this user has no credentials registered'}
