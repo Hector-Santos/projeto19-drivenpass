@@ -6,7 +6,8 @@ import { findCredential as findCredentialService,
          deleteCredential as deleteCredentialService} from '../services/credentialsService.js';
 
 export async function createCredential(req:Request, res:Response) {
-  const credential:ICredentialInsertData = req.body;
+  const userId:number = res.locals.id
+  const credential:ICredentialInsertData = {userId, ...req.body}
   await createCredentialService(credential)      
   res.sendStatus(201);
 }

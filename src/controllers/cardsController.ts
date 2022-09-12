@@ -6,7 +6,8 @@ import { findCard as findCardService,
          deleteCard as deleteCardService} from '../services/cardsService.js';
 
 export async function createCard(req:Request, res:Response) {
-  const card:ICardInsertData = req.body;
+  const userId:number = res.locals.id
+  const card:ICardInsertData = {userId, ...req.body}
   await createCardService(card)      
   res.sendStatus(201);
 }

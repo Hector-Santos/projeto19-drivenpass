@@ -1,7 +1,6 @@
 import Joi from 'joi';
 
 export const cardsSchema = Joi.object({        
-    userId: Joi.number().required(),
     nameOnCard: Joi.string().required(),
     tag: Joi.string().required(),
     cardNumber: Joi.string().regex(/^[0-9]{4}\s[0-9]{4}\s[0-9]{4}\s[0-9]{4}/).required(),

@@ -6,7 +6,8 @@ import { findNote as findNoteService,
          deleteNote as deleteNoteService} from '../services/notesService.js';
 
 export async function createNote(req:Request, res:Response) {
-  const note:INoteInsertData = req.body;
+  const userId:number = res.locals.id
+  const note:INoteInsertData = {userId, ...req.body}
   await createNoteService(note)      
   res.sendStatus(201);
 }
